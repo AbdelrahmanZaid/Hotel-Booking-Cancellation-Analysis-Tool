@@ -3,7 +3,9 @@ name = "hotel-booking-cancellation-analysis-tool"
 version = "0.1.0"
 readme = "README.md"
 requires-python = ">=3.10"
-dependencies = []
+dependencies = [
+    "pandas>=2.3.3",
+]
 
 [build-system]
 requires = ["uv_build>=0.12.3,<0.13.0"]
