@@ -4,10 +4,10 @@ import pandas as pd
 def clean_booking_data(data: pd.DataFrame) -> pd.DataFrame:
 
     cleaned_data = data.copy()
-
+    Children_median = cleaned_data["children"].median()
     cleaned_data["children"] = (
         cleaned_data["children"]
-        .fillna(0)
+        .fillna(Children_median)
         .astype("int64")
     )
 
