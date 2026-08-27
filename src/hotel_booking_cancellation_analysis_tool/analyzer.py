@@ -34,3 +34,51 @@ class BookingAnalyzer:
         )
 
         return result
+
+    def cancellation_rate_by_market_segment(self) -> pd.DataFrame:
+        result = (
+            self.data.groupby("market_segment")
+            .agg(
+                total_bookings=("is_canceled", "size"),
+                canceled_bookings=("is_canceled", "sum"),
+            )
+            .reset_index()
+        )
+
+        result["cancellation_rate"] = (
+            result["canceled_bookings"] / result["total_bookings"] * 100
+        )
+
+        return result
+
+    def cancellation_rate_by_deposit_type(self) -> pd.DataFrame:
+        result = (
+            self.data.groupby("deposit_type")
+            .agg(
+                total_bookings=("is_canceled", "size"),
+                canceled_bookings=("is_canceled", "sum"),
+            )
+            .reset_index()
+        )
+
+        result["cancellation_rate"] = (
+            result["canceled_bookings"] / result["total_bookings"] * 100
+        )
+
+        return result
+
+    def cancellation_rate_by_customer_type(self) -> pd.DataFrame:
+        result = (
+            self.data.groupby("customer_type")
+            .agg(
+                total_bookings=("is_canceled", "size"),
+                canceled_bookings=("is_canceled", "sum"),
+            )
+            .reset_index()
+        )
+
+        result["cancellation_rate"] = (
+            result["canceled_bookings"] / result["total_bookings"] * 100
+        )
+
+        return result
