@@ -75,10 +75,7 @@ def validate_booking_data(data: pd.DataFrame) -> ValidationResult:
     missing_columns = REQUIRED_COLUMNS - set(data.columns)
 
     if missing_columns:
-        errors.append(
-            "Missing required columns: "
-            + ", ".join(sorted(missing_columns))
-        )
+        errors.append("Missing required columns: " + ", ".join(sorted(missing_columns)))
 
         return ValidationResult(errors, warnings)
 
@@ -90,9 +87,10 @@ def validate_booking_data(data: pd.DataFrame) -> ValidationResult:
             f"{sorted(invalid_cancellation_values)}"
         )
 
-    invalid_repeated_guest_values = (
-        set(data["is_repeated_guest"].dropna().unique()) - {0, 1}
-    )
+    invalid_repeated_guest_values = set(data["is_repeated_guest"].dropna().unique()) - {
+        0,
+        1,
+    }
 
     if invalid_repeated_guest_values:
         errors.append(
@@ -105,31 +103,23 @@ def validate_booking_data(data: pd.DataFrame) -> ValidationResult:
     invalid_hotels = set(data["hotel"].dropna().unique()) - valid_hotels
 
     if invalid_hotels:
-        errors.append(
-            f"Hotel unknown type: {sorted(invalid_hotels)}"
-        )
+        errors.append(f"Hotel unknown type: {sorted(invalid_hotels)}")
 
     for column in NON_NEGATIVE_COLUMNS:
         negative_count = (data[column].dropna() < 0).sum()
 
         if negative_count > 0:
-            errors.append(
-                f"{column} has {negative_count} negative values."
-            )
+            errors.append(f"{column} has {negative_count} negative values.")
 
     missing_values = data.isna().sum()
     missing_values = missing_values[missing_values > 0]
 
     for column, count in missing_values.items():
-        warnings.append(
-            f"{column} has {count:,} missing values."
-        )
+        warnings.append(f"{column} has {count:,} missing values.")
 
     duplicate_count = data.duplicated().sum()
 
     if duplicate_count > 0:
-        warnings.append(
-            f"{duplicate_count:,} rows have duplicated values."
-        )
+        warnings.append(f"{duplicate_count:,} rows have duplicated values.")
 
     return ValidationResult(errors, warnings)

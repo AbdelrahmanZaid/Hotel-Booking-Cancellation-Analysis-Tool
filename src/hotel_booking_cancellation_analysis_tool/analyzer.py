@@ -82,3 +82,115 @@ class BookingAnalyzer:
         )
 
         return result
+
+    def arrival_bookings_by_month(self) -> pd.DataFrame:
+        data_with_month = self.data.assign(
+            arrival_month=self.data["arrival_date"].dt.to_period("M").astype(str)
+        )
+
+        result = (
+            data_with_month.groupby("arrival_month")
+            .agg(
+                total_bookings=("is_canceled", "size"),
+                canceled_bookings=("is_canceled", "sum"),
+            )
+            .reset_index()
+        )
+
+        result["non_canceled_bookings"] = (
+            result["total_bookings"] - result["canceled_bookings"]
+        )
+
+        return result
+
+    def arrival_bookings_by_month_and_hotel(self) -> pd.DataFrame:
+        data_with_month = self.data.assign(
+            arrival_month=self.data["arrival_date"].dt.to_period("M").astype(str)
+        )
+
+        result = (
+            data_with_month.groupby(["hotel", "arrival_month"])
+            .agg(
+                total_bookings=("is_canceled", "size"),
+                canceled_bookings=("is_canceled", "sum"),
+            )
+            .reset_index()
+        )
+
+        result["non_canceled_bookings"] = (
+            result["total_bookings"] - result["canceled_bookings"]
+        )
+
+        return result
+
+    def repeated_guest_analysis(self) -> pd.DataFrame:
+        result = (
+            self.data.groupby("is_repeated_guest")
+            .agg(
+                total_bookings=("is_repeated_guest", "size"),
+                average_lead_time=("lead_time", "mean"),
+                average_total_nights=("total_nights", "mean"),
+                average_guests=("total_guests", "mean"),
+                average_special_requests=(
+                    "total_of_special_requests",
+                    "mean",
+                ),
+            )
+            .reset_index()
+        )
+
+        result["guest_type"] = result["is_repeated_guest"].map(
+            {
+                0: "Not repeated",
+                1: "Repeated",
+            }
+        )
+        result = result[
+            [
+                "guest_type",
+                "total_bookings",
+                "average_lead_time",
+                "average_total_nights",
+                "average_guests",
+                "average_special_requests",
+            ]
+        ]
+        result = result.round(
+            {
+                "average_lead_time": 2,
+                "average_total_nights": 2,
+                "average_guests": 2,
+                "average_special_requests": 2,
+            }
+        )
+
+        return result
+
+    def total_of_special_requests_analysis(self) -> pd.DataFrame:
+        result = (
+            self.data.groupby("total_of_special_requests")
+            .agg(
+                total_bookings=("total_of_special_requests", "size"),
+            )
+            .reset_index()
+        )
+
+        result["booking_percentage"] = result["total_bookings"] / len(self.data) * 100
+
+        return result
+
+    def room_change_analysis(self) -> dict[str, int | float]:
+        total_bookings = len(self.data)
+        total_rooms_changed = int(self.data["room_changed"].sum())
+        total_rooms_unchanged = total_bookings - total_rooms_changed
+
+        percentage_rooms_changed = (total_rooms_changed / total_bookings) * 100
+        percentage_rooms_unchanged = (total_rooms_unchanged / total_bookings) * 100
+
+        return {
+            "total_bookings": total_bookings,
+            "total_rooms_changed": total_rooms_changed,
+            "total_rooms_unchanged": total_rooms_unchanged,
+            "percentage_rooms_changed": percentage_rooms_changed,
+            "percentage_rooms_unchanged": percentage_rooms_unchanged,
+        }
