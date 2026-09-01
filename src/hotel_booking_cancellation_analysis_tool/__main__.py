@@ -59,6 +59,14 @@ def main() -> None:
 
     room_change_analysis = analyzer.room_change_analysis()
 
+    distribution_channel_analysis = analyzer.distribution_channel_analysis()
+
+    top_countries_by_bookings = analyzer.top_countries_by_bookings()
+
+    average_daily_rate_hotel_analysis = analyzer.average_daily_rate_hotel_analysis()
+
+    average_daily_rate_month_analysis = analyzer.average_daily_rate_month_analysis()
+
     print(f"Total bookings: {cancellation_summary['total_bookings']:,}\n")
 
     print(f"Canceled bookings: {cancellation_summary['total_canceled']:,}\n")
@@ -101,6 +109,18 @@ def main() -> None:
     print(
         f"Percentage unchanged: {room_change_analysis['percentage_rooms_unchanged']:.2f}%"
     )
+
+    print("\nDistribution channel analysis:")
+    print(distribution_channel_analysis)
+
+    print("\nTop countries by bookings:")
+    print(top_countries_by_bookings)
+
+    print("\nAverage hotel daily rate analysis:")
+    print(average_daily_rate_hotel_analysis)
+
+    print("\nAverage daily rate by month analysis:")
+    print(average_daily_rate_month_analysis)
 
 
 if __name__ == "__main__":
