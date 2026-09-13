@@ -247,8 +247,8 @@ class BookingAnalyzer:
 
         result = result.round(
             {
-                "average_adr": 2,
                 "median_adr": 2,
+                "average_adr": 2,
             }
         )
         return result
@@ -261,16 +261,16 @@ class BookingAnalyzer:
             data_with_month.groupby("arrival_month")
             .agg(
                 total_bookings=("adr", "size"),
-                median_adr=("adr", "mean"),
-                average_adr=("adr", "median"),
+                median_adr=("adr", "median"),
+                average_adr=("adr", "mean"),
             )
             .reset_index()
         )
 
         result = result.round(
             {
-                "average_adr": 2,
                 "median_adr": 2,
+                "average_adr": 2,
             }
         )
         return result

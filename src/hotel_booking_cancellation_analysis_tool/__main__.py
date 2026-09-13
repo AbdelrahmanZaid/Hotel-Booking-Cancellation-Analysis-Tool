@@ -2,6 +2,7 @@ from .loader import load_booking_data
 from .validator import validate_booking_data
 from .cleaner import clean_booking_data
 from .analyzer import BookingAnalyzer
+from .visualizer import BookingVisualizer
 
 
 def main() -> None:
@@ -38,6 +39,8 @@ def main() -> None:
     print(f"Prepared columns: {len(cleaned_data.columns)}\n")
 
     analyzer = BookingAnalyzer(cleaned_data)
+
+    visualizer = BookingVisualizer()
 
     cancellation_summary = analyzer.cancellation_summary()
 
@@ -121,6 +124,54 @@ def main() -> None:
 
     print("\nAverage daily rate by month analysis:")
     print(average_daily_rate_month_analysis)
+
+    cancellation_summary_plot = visualizer.plot_cancellation_summary(
+        cancellation_summary
+    )
+    print(f"\nVisualization saved: " f"{cancellation_summary_plot}")
+
+    cancellation_hotel_plot = visualizer.plot_cancellation_by_hotel(
+        cancellation_by_hotel
+    )
+
+    print(f"\nVisualization saved: " f"{cancellation_hotel_plot}")
+
+    cancellation_market_segment_plot = visualizer.plot_cancellation_by_market_segment(
+        cancellation_by_market_segment
+    )
+
+    print(f"\nVisualization saved: " f"{cancellation_market_segment_plot}")
+
+    cancellation_deposit_type_plot = visualizer.plot_cancellation_by_deposit_type(
+        cancellation_by_deposit_type
+    )
+
+    print(f"\nVisualization saved: " f"{cancellation_deposit_type_plot}")
+
+    distribution_channels_plot = visualizer.plot_distribution_channels(
+        distribution_channel_analysis
+    )
+    print(f"\nVisualization saved: " f"{distribution_channels_plot}")
+    
+    arrival_bookings_by_month_plot = visualizer.plot_arrival_bookings_by_month(
+        arrival_bookings_by_month
+    )
+    print(f"\nVisualization saved: " f"{arrival_bookings_by_month_plot}")
+
+    arrival_bookings_by_hotel_and_month_plot = (
+        visualizer.plot_arrival_bookings_by_hotel_and_month(
+            arrival_bookings_by_month_and_hotel
+        )
+    )
+
+    print(f"\nVisualization saved: " f"{arrival_bookings_by_hotel_and_month_plot}")
+
+    top_countries_plot = visualizer.plot_top_countries(top_countries_by_bookings)
+    print(f"\nVisualization saved: " f"{top_countries_plot}")
+
+
+    adr_by_month_plot = visualizer.plot_adr_by_month(average_daily_rate_month_analysis)
+    print(f"\nVisualization saved: " f"{adr_by_month_plot}")
 
 
 if __name__ == "__main__":
