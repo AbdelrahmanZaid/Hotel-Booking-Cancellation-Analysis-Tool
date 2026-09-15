@@ -3,7 +3,10 @@ from .validator import validate_booking_data
 from .cleaner import clean_booking_data
 from .analyzer import BookingAnalyzer
 from .visualizer import BookingVisualizer
+from .cli import main
 
+if __name__ == "__main__":
+    main()
 
 def main() -> None:
     data = load_booking_data()
@@ -152,7 +155,7 @@ def main() -> None:
         distribution_channel_analysis
     )
     print(f"\nVisualization saved: " f"{distribution_channels_plot}")
-    
+
     arrival_bookings_by_month_plot = visualizer.plot_arrival_bookings_by_month(
         arrival_bookings_by_month
     )
@@ -169,10 +172,6 @@ def main() -> None:
     top_countries_plot = visualizer.plot_top_countries(top_countries_by_bookings)
     print(f"\nVisualization saved: " f"{top_countries_plot}")
 
-
     adr_by_month_plot = visualizer.plot_adr_by_month(average_daily_rate_month_analysis)
     print(f"\nVisualization saved: " f"{adr_by_month_plot}")
 
-
-if __name__ == "__main__":
-    main()
