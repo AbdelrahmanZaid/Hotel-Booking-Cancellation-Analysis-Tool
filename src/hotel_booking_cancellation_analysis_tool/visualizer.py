@@ -1,10 +1,10 @@
 from pathlib import Path
+
 import matplotlib.pyplot as plt
 import pandas as pd
 
 
 class BookingVisualizer:
-
     def __init__(
         self,
         output_dir: str | Path = "outputs",

@@ -1,10 +1,12 @@
 import argparse
 from pathlib import Path
+
 from .analyzer import BookingAnalyzer
 from .cleaner import clean_booking_data
 from .loader import load_booking_data
 from .validator import validate_booking_data
 from .visualizer import BookingVisualizer
+
 
 def _prepare_data(file_path: Path | None = None) -> BookingAnalyzer:
     data = load_booking_data(file_path)
@@ -110,21 +112,18 @@ def _print_average_daily_rate_analysis(analyzer: BookingAnalyzer) -> None:
         )
     )
 
+
 def _create_visualizations(analyzer: BookingAnalyzer) -> None:
     visualizer: BookingVisualizer = BookingVisualizer()
     cancellation_summary = analyzer.cancellation_summary()
     cancellation_by_hotel = analyzer.cancellation_rate_by_hotel()
-    cancellation_by_market = (
-        analyzer.cancellation_rate_by_market_segment()
-    )
-    cancellation_by_deposit = (
-        analyzer.cancellation_rate_by_deposit_type()
-    )
+    cancellation_by_market = analyzer.cancellation_rate_by_market_segment()
+    cancellation_by_deposit = analyzer.cancellation_rate_by_deposit_type()
 
     distribution_channels = analyzer.distribution_channel_analysis()
 
     arrivals_by_month = analyzer.arrival_bookings_by_month()
-    arrivals_by_hotel = (analyzer.arrival_bookings_by_month_and_hotel())
+    arrivals_by_hotel = analyzer.arrival_bookings_by_month_and_hotel()
 
     top_countries = analyzer.top_countries_by_bookings(15)
     adr_by_month = analyzer.average_daily_rate_month_analysis()
@@ -139,6 +138,7 @@ def _create_visualizations(analyzer: BookingAnalyzer) -> None:
     visualizer.plot_top_countries(top_countries)
     visualizer.plot_adr_by_month(adr_by_month)
     print("\nVisualizations have been created successfully")
+
 
 def build_argument_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
@@ -177,11 +177,9 @@ def build_argument_parser() -> argparse.ArgumentParser:
         "adr",
         help="Show average daily rate analysis",
     )
-    subparsers.add_parser(
-        "visualize",
-        help="Create visualizations of the data"
-    )
+    subparsers.add_parser("visualize", help="Create visualizations of the data")
     return parser
+
 
 def main() -> None:
     parser = build_argument_parser()

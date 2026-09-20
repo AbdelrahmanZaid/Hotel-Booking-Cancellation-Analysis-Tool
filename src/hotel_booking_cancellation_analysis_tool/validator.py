@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+
 import pandas as pd
 
 REQUIRED_COLUMNS = {
@@ -55,7 +56,6 @@ NON_NEGATIVE_COLUMNS = [
 
 @dataclass
 class ValidationResult:
-
     errors: list[str]
     warnings: list[str]
 
@@ -83,8 +83,7 @@ def validate_booking_data(data: pd.DataFrame) -> ValidationResult:
 
     if invalid_cancellation_values:
         errors.append(
-            f"Values are invalid in is_canceled: "
-            f"{sorted(invalid_cancellation_values)}"
+            f"Values are invalid in is_canceled: {sorted(invalid_cancellation_values)}"
         )
 
     invalid_repeated_guest_values = set(data["is_repeated_guest"].dropna().unique()) - {

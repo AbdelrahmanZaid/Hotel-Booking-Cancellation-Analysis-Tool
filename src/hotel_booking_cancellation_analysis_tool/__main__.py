@@ -1,177 +1,179 @@
-from .loader import load_booking_data
-from .validator import validate_booking_data
-from .cleaner import clean_booking_data
-from .analyzer import BookingAnalyzer
-from .visualizer import BookingVisualizer
+# from .loader import load_booking_data
+# from .validator import validate_booking_data
+# from .cleaner import clean_booking_data
+# from .analyzer import BookingAnalyzer
+# from .visualizer import BookingVisualizer
+
+
 from .cli import main
 
 if __name__ == "__main__":
     main()
 
-def main() -> None:
-    data = load_booking_data()
 
-    print(f"Booking data {len(data):,}\n")
-    print(f"Columns: {len(data.columns)}\n")
+# def main() -> None:
+#     data = load_booking_data()
 
-    validation = validate_booking_data(data)
+#     print(f"Booking data {len(data):,}\n")
+#     print(f"Columns: {len(data.columns)}\n")
 
-    print("Validation status:")
+#     validation = validate_booking_data(data)
 
-    if not validation.is_valid:
-        print("Dataset is invalid\n")
+#     print("Validation status:")
 
-        if validation.errors:
-            print("Errors found:")
-            for error in validation.errors:
-                print(error)
+#     if not validation.is_valid:
+#         print("Dataset is invalid\n")
 
-        return
+#         if validation.errors:
+#             print("Errors found:")
+#             for error in validation.errors:
+#                 print(error)
 
-    print("Dataset is valid\n")
+#         return
 
-    if validation.warnings:
-        print("Warnings found:")
-        for warning in validation.warnings:
-            print(warning)
+#     print("Dataset is valid\n")
 
-    cleaned_data = clean_booking_data(data)
+#     if validation.warnings:
+#         print("Warnings found:")
+#         for warning in validation.warnings:
+#             print(warning)
 
-    print("\nData preparation complete\n")
-    print(f"Prepared bookings: {len(cleaned_data):,}")
-    print(f"Prepared columns: {len(cleaned_data.columns)}\n")
+#     cleaned_data = clean_booking_data(data)
 
-    analyzer = BookingAnalyzer(cleaned_data)
+#     print("\nData preparation complete\n")
+#     print(f"Prepared bookings: {len(cleaned_data):,}")
+#     print(f"Prepared columns: {len(cleaned_data.columns)}\n")
 
-    visualizer = BookingVisualizer()
+#     analyzer = BookingAnalyzer(cleaned_data)
 
-    cancellation_summary = analyzer.cancellation_summary()
+#     visualizer = BookingVisualizer()
 
-    cancellation_by_hotel = analyzer.cancellation_rate_by_hotel()
+#     cancellation_summary = analyzer.cancellation_summary()
 
-    cancellation_by_market_segment = analyzer.cancellation_rate_by_market_segment()
+#     cancellation_by_hotel = analyzer.cancellation_rate_by_hotel()
 
-    cancellation_by_deposit_type = analyzer.cancellation_rate_by_deposit_type()
+#     cancellation_by_market_segment = analyzer.cancellation_rate_by_market_segment()
 
-    cancellation_by_customer_type = analyzer.cancellation_rate_by_customer_type()
+#     cancellation_by_deposit_type = analyzer.cancellation_rate_by_deposit_type()
 
-    arrival_bookings_by_month = analyzer.arrival_bookings_by_month()
+#     cancellation_by_customer_type = analyzer.cancellation_rate_by_customer_type()
 
-    arrival_bookings_by_month_and_hotel = analyzer.arrival_bookings_by_month_and_hotel()
+#     arrival_bookings_by_month = analyzer.arrival_bookings_by_month()
 
-    repeated_guest_analysis = analyzer.repeated_guest_analysis()
+#     arrival_bookings_by_month_and_hotel = analyzer.arrival_bookings_by_month_and_hotel()
 
-    total_of_special_requests_analysis = analyzer.total_of_special_requests_analysis()
+#     repeated_guest_analysis = analyzer.repeated_guest_analysis()
 
-    room_change_analysis = analyzer.room_change_analysis()
+#     total_of_special_requests_analysis = analyzer.total_of_special_requests_analysis()
 
-    distribution_channel_analysis = analyzer.distribution_channel_analysis()
+#     room_change_analysis = analyzer.room_change_analysis()
 
-    top_countries_by_bookings = analyzer.top_countries_by_bookings()
+#     distribution_channel_analysis = analyzer.distribution_channel_analysis()
 
-    average_daily_rate_hotel_analysis = analyzer.average_daily_rate_hotel_analysis()
+#     top_countries_by_bookings = analyzer.top_countries_by_bookings()
 
-    average_daily_rate_month_analysis = analyzer.average_daily_rate_month_analysis()
+#     average_daily_rate_hotel_analysis = analyzer.average_daily_rate_hotel_analysis()
 
-    print(f"Total bookings: {cancellation_summary['total_bookings']:,}\n")
+#     average_daily_rate_month_analysis = analyzer.average_daily_rate_month_analysis()
 
-    print(f"Canceled bookings: {cancellation_summary['total_canceled']:,}\n")
+#     print(f"Total bookings: {cancellation_summary['total_bookings']:,}\n")
 
-    print(f"Not canceled bookings: {cancellation_summary['total_not_canceled']:,}\n")
+#     print(f"Canceled bookings: {cancellation_summary['total_canceled']:,}\n")
 
-    print(f"Cancellation rate: {cancellation_summary['cancellation_rate']:.2f}%\n")
+#     print(f"Not canceled bookings: {cancellation_summary['total_not_canceled']:,}\n")
 
-    print("\nCancellation rate by hotel:")
-    print(cancellation_by_hotel)
+#     print(f"Cancellation rate: {cancellation_summary['cancellation_rate']:.2f}%\n")
 
-    print("\nCancellation rate by market segment:")
-    print(cancellation_by_market_segment)
+#     print("\nCancellation rate by hotel:")
+#     print(cancellation_by_hotel)
 
-    print("\nCancellation rate by deposit type:")
-    print(cancellation_by_deposit_type)
+#     print("\nCancellation rate by market segment:")
+#     print(cancellation_by_market_segment)
 
-    print("\nCancellation rate by customer type:")
-    print(cancellation_by_customer_type)
+#     print("\nCancellation rate by deposit type:")
+#     print(cancellation_by_deposit_type)
 
-    print("\nArrival bookings by month:")
-    print(arrival_bookings_by_month)
+#     print("\nCancellation rate by customer type:")
+#     print(cancellation_by_customer_type)
 
-    print("\nArrival bookings by month and hotel:")
-    print(arrival_bookings_by_month_and_hotel)
+#     print("\nArrival bookings by month:")
+#     print(arrival_bookings_by_month)
 
-    print("\nRepeated guest analysis:")
-    print(repeated_guest_analysis)
+#     print("\nArrival bookings by month and hotel:")
+#     print(arrival_bookings_by_month_and_hotel)
 
-    print("\nTotal of special requests analysis:")
-    print(total_of_special_requests_analysis)
+#     print("\nRepeated guest analysis:")
+#     print(repeated_guest_analysis)
 
-    print("\nRoom change analysis:")
-    print(f"Total bookings: {room_change_analysis['total_bookings']:,}")
-    print(f"Changed rooms: {room_change_analysis['total_rooms_changed']:,}")
-    print(f"Unchanged rooms: {room_change_analysis['total_rooms_unchanged']:,}")
-    print(
-        f"Percentage changed: {room_change_analysis['percentage_rooms_changed']:.2f}%"
-    )
-    print(
-        f"Percentage unchanged: {room_change_analysis['percentage_rooms_unchanged']:.2f}%"
-    )
+#     print("\nTotal of special requests analysis:")
+#     print(total_of_special_requests_analysis)
 
-    print("\nDistribution channel analysis:")
-    print(distribution_channel_analysis)
+#     print("\nRoom change analysis:")
+#     print(f"Total bookings: {room_change_analysis['total_bookings']:,}")
+#     print(f"Changed rooms: {room_change_analysis['total_rooms_changed']:,}")
+#     print(f"Unchanged rooms: {room_change_analysis['total_rooms_unchanged']:,}")
+#     print(
+#         f"Percentage changed: {room_change_analysis['percentage_rooms_changed']:.2f}%"
+#     )
+#     print(
+#         f"Percentage unchanged: {room_change_analysis['percentage_rooms_unchanged']:.2f}%"
+#     )
 
-    print("\nTop countries by bookings:")
-    print(top_countries_by_bookings)
+#     print("\nDistribution channel analysis:")
+#     print(distribution_channel_analysis)
 
-    print("\nAverage hotel daily rate analysis:")
-    print(average_daily_rate_hotel_analysis)
+#     print("\nTop countries by bookings:")
+#     print(top_countries_by_bookings)
 
-    print("\nAverage daily rate by month analysis:")
-    print(average_daily_rate_month_analysis)
+#     print("\nAverage hotel daily rate analysis:")
+#     print(average_daily_rate_hotel_analysis)
 
-    cancellation_summary_plot = visualizer.plot_cancellation_summary(
-        cancellation_summary
-    )
-    print(f"\nVisualization saved: " f"{cancellation_summary_plot}")
+#     print("\nAverage daily rate by month analysis:")
+#     print(average_daily_rate_month_analysis)
 
-    cancellation_hotel_plot = visualizer.plot_cancellation_by_hotel(
-        cancellation_by_hotel
-    )
+#     cancellation_summary_plot = visualizer.plot_cancellation_summary(
+#         cancellation_summary
+#     )
+#     print(f"\nVisualization saved: {cancellation_summary_plot}")
 
-    print(f"\nVisualization saved: " f"{cancellation_hotel_plot}")
+#     cancellation_hotel_plot = visualizer.plot_cancellation_by_hotel(
+#         cancellation_by_hotel
+#     )
 
-    cancellation_market_segment_plot = visualizer.plot_cancellation_by_market_segment(
-        cancellation_by_market_segment
-    )
+#     print(f"\nVisualization saved: {cancellation_hotel_plot}")
 
-    print(f"\nVisualization saved: " f"{cancellation_market_segment_plot}")
+#     cancellation_market_segment_plot = visualizer.plot_cancellation_by_market_segment(
+#         cancellation_by_market_segment
+#     )
 
-    cancellation_deposit_type_plot = visualizer.plot_cancellation_by_deposit_type(
-        cancellation_by_deposit_type
-    )
+#     print(f"\nVisualization saved: {cancellation_market_segment_plot}")
 
-    print(f"\nVisualization saved: " f"{cancellation_deposit_type_plot}")
+#     cancellation_deposit_type_plot = visualizer.plot_cancellation_by_deposit_type(
+#         cancellation_by_deposit_type
+#     )
 
-    distribution_channels_plot = visualizer.plot_distribution_channels(
-        distribution_channel_analysis
-    )
-    print(f"\nVisualization saved: " f"{distribution_channels_plot}")
+#     print(f"\nVisualization saved: {cancellation_deposit_type_plot}")
 
-    arrival_bookings_by_month_plot = visualizer.plot_arrival_bookings_by_month(
-        arrival_bookings_by_month
-    )
-    print(f"\nVisualization saved: " f"{arrival_bookings_by_month_plot}")
+#     distribution_channels_plot = visualizer.plot_distribution_channels(
+#         distribution_channel_analysis
+#     )
+#     print(f"\nVisualization saved: {distribution_channels_plot}")
 
-    arrival_bookings_by_hotel_and_month_plot = (
-        visualizer.plot_arrival_bookings_by_hotel_and_month(
-            arrival_bookings_by_month_and_hotel
-        )
-    )
+#     arrival_bookings_by_month_plot = visualizer.plot_arrival_bookings_by_month(
+#         arrival_bookings_by_month
+#     )
+#     print(f"\nVisualization saved: {arrival_bookings_by_month_plot}")
 
-    print(f"\nVisualization saved: " f"{arrival_bookings_by_hotel_and_month_plot}")
+#     arrival_bookings_by_hotel_and_month_plot = (
+#         visualizer.plot_arrival_bookings_by_hotel_and_month(
+#             arrival_bookings_by_month_and_hotel
+#         )
+#     )
 
-    top_countries_plot = visualizer.plot_top_countries(top_countries_by_bookings)
-    print(f"\nVisualization saved: " f"{top_countries_plot}")
+#     print(f"\nVisualization saved: {arrival_bookings_by_hotel_and_month_plot}")
 
-    adr_by_month_plot = visualizer.plot_adr_by_month(average_daily_rate_month_analysis)
-    print(f"\nVisualization saved: " f"{adr_by_month_plot}")
+#     top_countries_plot = visualizer.plot_top_countries(top_countries_by_bookings)
+#     print(f"\nVisualization saved: {top_countries_plot}")
 
+#     adr_by_month_plot = visualizer.plot_adr_by_month(average_daily_rate_month_analysis)
+#     print(f"\nVisualization saved: {adr_by_month_plot}")
