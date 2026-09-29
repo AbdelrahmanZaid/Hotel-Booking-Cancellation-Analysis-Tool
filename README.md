@@ -48,28 +48,17 @@ To run the Hotel Booking Cancellation Analysis Tool, you use the command uv run 
 
 ### Available commands:
 
-- summary:
-Displays the total number of bookings, cancelled bookings, non-cancelled bookings and the overall cancellation rate.
+- summary: Displays the total number of bookings, cancelled bookings, non-cancelled bookings and the overall cancellation rate.
 
-- cancellations:
+- cancellations: Displays cancellation analysis for hotels, market segments, deposit type and customer type.
 
-Displays cancellation analysis for hotels, market segments, deposit type and customer type.
+- customers: Displays repeated guest behaviour, special requests and room changes.
 
-- customers:
+- market: Displays booking distribution channels and countries from which guests are coming.
 
-Displays repeated guest behaviour, special requests and room changes.
+- adr: Reports average and median Average Daily Rate by hotel and by month.
 
-- market:
-
-Displays booking distribution channels and countries from which guests are coming.
-
-- adr: 
-
-Reports average and median Average Daily Rate by hotel and by month.
-
-- visualize: 
-
-Creates and stores all project visualisations in the outputs folder.
+- visualize: Creates and stores all project visualisations in the outputs folder.
 
 ### Examples:
 
